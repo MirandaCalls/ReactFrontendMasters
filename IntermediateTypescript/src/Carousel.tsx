@@ -1,0 +1,53 @@
+import { Component, MouseEvent, ReactNode } from "react";
+
+interface Props {
+  images: string[];
+}
+
+class Carousel extends Component<Props> {
+  state = {
+    active: 0,
+  };
+
+  static defaultProps = {
+    images: ["https://pets-images.dev-apis.com/pets/none.jpg"],
+  };
+
+  handleIndexClick = (event: MouseEvent<HTMLElement>) => {
+    if (!(event.target instanceof HTMLElement)) {
+      return;
+    }
+
+    if (event.target.dataset.index) {
+      this.setState({
+        active: +event.target.dataset.index,
+      });
+    }
+  };
+
+  render() {
+    const { active } = this.state;
+    const { images } = this.props;
+
+    return (
+      <div className="carousel">
+        <img src={images[active]} alt={"animal"} />
+        <div className="carousel-smaller">
+          {images.map((photo, index) => (
+            // eslint-disable-next-line
+            <img
+              onClick={this.handleIndexClick}
+              key={photo}
+              src={photo}
+              className={index === active ? "active" : ""}
+              alt="animal thumbnail"
+              data-index={index}
+            />
+          ))}
+        </div>
+      </div>
+    );
+  }
+}
+
+export default Carousel;
