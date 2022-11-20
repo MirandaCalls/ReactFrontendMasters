@@ -7,7 +7,9 @@ const ColorBox = ({ colorName, colorHex }) => {
   };
 
   const useDarkText = parseInt(colorHex.replace('#', ''), 16) > 0xffffff / 1.1;
-  const textStyle = useDarkText ? styles.colorBoxBlackText : styles.colorBoxWhiteText;
+  const textStyle = useDarkText
+    ? styles.colorBoxBlackText
+    : styles.colorBoxWhiteText;
 
   return (
     <View style={[styles.colorBox, boxColor]}>
@@ -24,6 +26,11 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     marginVertical: 5,
     borderRadius: 5,
+    elevation: 5, // Android
+    shadowColor: '#030002', // Android, iOS & Web
+    shadowOpacity: 0.25, // iOS & Web
+    shadowRadius: 2, // iOS & web
+    shadowOffset: { width: 0, height: 2 },
   },
   colorBoxWhiteText: {
     color: 'white',
